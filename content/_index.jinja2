@@ -10,7 +10,10 @@ title: Home
 
 <ul>
 {% for link in context.data.links %}
-  <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+  <li>
+    <a href="{{ link.url }}">{{ link.title }}</a>
+    <span class="category">{{ link.category|title }}</span>
+  </li>
 {% endfor %}
 </ul>
 

@@ -115,9 +115,13 @@ def persist(docs):
             f.write(doc.info.content)
 
 
-if __name__ == '__main__':
+def build():
     docs = load_docs()
     context = Context()
     render(context, docs)
     prepare(docs)
     persist(docs)
+
+
+if __name__ == '__main__':
+    build()
