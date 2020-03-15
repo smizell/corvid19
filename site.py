@@ -45,13 +45,15 @@ class Renderer:
 
 class Context:
     def __init__(self):
+        self.data = {}
         self.populate_data()
 
     def populate_data(self):
-        data = {}
-        with open(os.path.join(DATA_DIR, 'links.csv')) as f:
-            data['links'] = list(csv.DictReader(f))
-        self.data = data
+        for file_name in os.listdir(DATA_DIR):
+            data_name, ext = file_name.split('.')
+            if ext == 'csv':
+                with open(os.path.join(DATA_DIR, file_name)) as f:
+                    self.data[data_name] = list(csv.DictReader(f))
 
 
 class Document:
