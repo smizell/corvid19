@@ -1,3 +1,4 @@
+import csv
 import os
 import pathlib
 import shutil
@@ -10,10 +11,12 @@ BUILD_DIR = './build'
 CONTENT_DIR = './content'
 LAYOUTS_DIR = './layouts'
 STATIC_DIR = './static'
+DATA_DIR = './data'
 
 
 class Renderer:
-    def __init__(self):
+    def __init__(self, context):
+        self.context = context
         loader = jinja2.FileSystemLoader(searchpath=LAYOUTS_DIR)
         self.template_env = jinja2.Environment(loader=loader)
         self.templates = {
@@ -26,7 +29,7 @@ class Renderer:
         if doc.file_name.endswith('.md'):
             doc.info.content = markdown.markdown(doc.info.content)
             doc.file_name = doc.file_name.replace('.md', '.html')
-            return self.templates['page'].render(doc=doc)
+            return self.templates['page'].render(context=self.context, doc=doc)
 
         # Jinja2 files will render as themselves
         # There is no need to use a page template as the `extends` tag
@@ -34,10 +37,21 @@ class Renderer:
         if doc.file_name.endswith('.jinja2'):
             template = self.template_env.from_string(doc.info.content)
             doc.file_name = doc.file_name.replace('.jinja2', '.html')
-            return template.render(doc=doc)
+            return template.render(context=self.context, doc=doc)
 
         # Everything else, we just send back the content
         return doc.info.content
+
+
+class Context:
+    def __init__(self):
+        self.populate_data()
+
+    def populate_data(self):
+        data = {}
+        with open(os.path.join(DATA_DIR, 'links.csv')) as f:
+            data['links'] = list(csv.DictReader(f))
+        self.data = data
 
 
 class Document:
@@ -62,8 +76,8 @@ def load_docs():
     return docs
 
 
-def render(docs):
-    renderer = Renderer()
+def render(context, docs):
+    renderer = Renderer(context)
     for doc in docs:
         doc.info.content = renderer.render(doc)
 
@@ -101,6 +115,7 @@ def persist(docs):
 
 if __name__ == '__main__':
     docs = load_docs()
-    render(docs)
+    context = Context()
+    render(context, docs)
     prepare(docs)
     persist(docs)

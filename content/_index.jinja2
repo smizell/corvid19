@@ -1,0 +1,17 @@
+---
+title: Home
+---
+
+{% extends "main.jinja2" %}
+
+{% block content %}
+
+<h1>Murray, KY / CORVID-19 Resources</h1>
+
+<ul>
+{% for link in context.data.links %}
+  <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+{% endfor %}
+</ul>
+
+{% endblock %}
