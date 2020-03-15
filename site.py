@@ -13,12 +13,12 @@ STATIC_DIR = './static'
 
 
 class Site:
-    def __init__(self, renderer, collection):
+    def __init__(self, renderer, docs):
         self.renderer = renderer
-        self.collection = collection
+        self.docs = docs
 
-    def render_collection(self):
-        for doc in self.collection.docs:
+    def render(self):
+        for doc in self.docs:
             doc.info.content = self.renderer.render(doc)
 
     def persist(self, dir_name=BUILD_DIR):
@@ -26,7 +26,7 @@ class Site:
             shutil.rmtree(dir_name)
         os.mkdir(BUILD_DIR)
         shutil.copytree(STATIC_DIR, os.path.join(BUILD_DIR, STATIC_DIR))
-        for doc in self.collection.docs:
+        for doc in self.docs:
             path = doc.dir_name.replace('./content', './build')
             if os.path.exists(path) == False:
                 pathlib.Path(path).mkdir(parents=True, exist_ok=True)
@@ -77,21 +77,14 @@ class Document:
         return f'Document({self.dir_name}/{self.file_name})'
 
 
-class Collection:
-    def __init__(self, dir_name, docs):
-        self.dir_name = dir_name
-        self.docs = docs
-
-    @classmethod
-    def from_dir_name(cls, dir_name):
-        docs = []
-        for root, dirs, files in os.walk(dir_name):
-            for f in files:
-                docs.append(Document.from_file_name(root, f))
-        return cls(dir_name, docs)
+def build_docs(dir_name):
+    docs = []
+    for root, dirs, files in os.walk(dir_name):
+        for f in files:
+            docs.append(Document.from_file_name(root, f))
+    return docs
 
 
-collection = Collection.from_dir_name(CONTENT_DIR)
-site = Site(renderer=Renderer(), collection=collection)
-site.render_collection()
+site = Site(renderer=Renderer(), docs=build_docs(CONTENT_DIR))
+site.render()
 site.persist()
