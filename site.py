@@ -71,6 +71,13 @@ def render(docs):
 def prepare(docs):
     for doc in docs:
         doc.dir_name = doc.dir_name.replace('./content', './build')
+        if doc.file_name.endswith('.html'):
+            if doc.file_name == '_index.html':
+                doc.file_name = 'index.html'
+            else:
+                add_dir_name = '.'.join(doc.file_name.split('.')[:-1])
+                doc.dir_name = os.path.join(doc.dir_name, add_dir_name)
+                doc.file_name = 'index.html'
 
 
 def persist(docs):
