@@ -11,8 +11,6 @@ class Site:
 
     def render_collection(self):
         for doc in self.collection.docs:
-            if doc.file_name.endswith('.md'):
-                doc.info.content = markdown.markdown(doc.info.content)
             doc.info.content = self.renderer.render(doc)
 
 
@@ -20,10 +18,23 @@ class Renderer:
     def __init__(self):
         loader = jinja2.FileSystemLoader(searchpath="./layouts")
         self.template_env = jinja2.Environment(loader=loader)
-        self.template = self.template_env.get_template('main.jinja2')
+        self.templates = {
+            # 'main': self.template_env.get_template('main.jinja2'),
+            'page': self.template_env.get_template('page.jinja2'),
+        } 
 
     def render(self, doc):
-        return self.template.render(doc=doc)
+        # Markdown uses the page template
+        if doc.file_name.endswith('.md'):
+            doc.info.content = markdown.markdown(doc.info.content)
+            return self.templates['page'].render(doc=doc)
+
+        # Jinja2 files will render as themselves
+        # There is no need to use a page template as the `extends` tag
+        # can be used to load other templates
+        if doc.file_name.endswith('.jinja2'):
+            template = self.template_env.from_string(doc.info.content)
+            return template.render(doc=doc)
 
 
 class Document:
@@ -57,4 +68,4 @@ class Collection:
 collection = Collection.from_dir_name('./content')
 site = Site(renderer=Renderer(), collection=collection)
 site.render_collection()
-print(site.collection.docs[0].info.content)
+print(site.collection.docs[1].info.content)
