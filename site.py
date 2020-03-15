@@ -5,9 +5,11 @@ import frontmatter
 import markdown
 import jinja2
 
+
 BUILD_DIR = './build'
 CONTENT_DIR = './content'
 LAYOUTS_DIR = './layouts'
+STATIC_DIR = './static'
 
 
 class Site:
@@ -22,6 +24,8 @@ class Site:
     def persist(self, dir_name=BUILD_DIR):
         if os.path.exists(dir_name):
             shutil.rmtree(dir_name)
+        os.mkdir(BUILD_DIR)
+        shutil.copytree(STATIC_DIR, os.path.join(BUILD_DIR, STATIC_DIR))
         for doc in self.collection.docs:
             path = doc.dir_name.replace('./content', './build')
             if os.path.exists(path) == False:
@@ -29,7 +33,6 @@ class Site:
             new_full_path = os.path.join(path, doc.file_name)
             with open(new_full_path, 'w+') as f:
                 f.write(doc.info.content)
-
 
 
 class Renderer:
@@ -55,6 +58,9 @@ class Renderer:
             template = self.template_env.from_string(doc.info.content)
             doc.file_name = doc.file_name.replace('.jinja2', '.html')
             return template.render(doc=doc)
+
+        # Everything else, we just send back the content
+        return doc.info.content
 
 
 class Document:
