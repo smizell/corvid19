@@ -12,29 +12,6 @@ LAYOUTS_DIR = './layouts'
 STATIC_DIR = './static'
 
 
-class Site:
-    def __init__(self, renderer, docs):
-        self.renderer = renderer
-        self.docs = docs
-
-    def render(self):
-        for doc in self.docs:
-            doc.info.content = self.renderer.render(doc)
-
-    def persist(self, dir_name=BUILD_DIR):
-        if os.path.exists(dir_name):
-            shutil.rmtree(dir_name)
-        os.mkdir(BUILD_DIR)
-        shutil.copytree(STATIC_DIR, os.path.join(BUILD_DIR, STATIC_DIR))
-        for doc in self.docs:
-            path = doc.dir_name.replace('./content', './build')
-            if os.path.exists(path) == False:
-                pathlib.Path(path).mkdir(parents=True, exist_ok=True)
-            new_full_path = os.path.join(path, doc.file_name)
-            with open(new_full_path, 'w+') as f:
-                f.write(doc.info.content)
-
-
 class Renderer:
     def __init__(self):
         loader = jinja2.FileSystemLoader(searchpath=LAYOUTS_DIR)
@@ -77,14 +54,46 @@ class Document:
         return f'Document({self.dir_name}/{self.file_name})'
 
 
-def build_docs(dir_name):
+def load_docs():
     docs = []
-    for root, dirs, files in os.walk(dir_name):
-        for f in files:
-            docs.append(Document.from_file_name(root, f))
+    for dir_name, _, file_names in os.walk(CONTENT_DIR):
+        for file_name in file_names:
+            docs.append(Document.from_file_name(dir_name, file_name))
     return docs
 
 
-site = Site(renderer=Renderer(), docs=build_docs(CONTENT_DIR))
-site.render()
-site.persist()
+def render(docs):
+    renderer = Renderer()
+    for doc in docs:
+        doc.info.content = renderer.render(doc)
+
+
+def prepare(docs):
+    for doc in docs:
+        doc.dir_name = doc.dir_name.replace('./content', './build')
+
+
+def persist(docs):
+    if os.path.exists(BUILD_DIR):
+        shutil.rmtree(BUILD_DIR)
+    os.mkdir(BUILD_DIR)
+
+    # This support static files in the STATIC_DIR
+    shutil.copytree(STATIC_DIR, os.path.join(BUILD_DIR, STATIC_DIR))
+
+    # Persist each doc into the build directory
+    # It will use whatever file name is there, so docs need to be prepared
+    # and rendered by this point.
+    for doc in docs:
+        if os.path.exists(doc.dir_name) == False:
+            pathlib.Path(doc.dir_name).mkdir(parents=True, exist_ok=True)
+        full_path = os.path.join(doc.dir_name, doc.file_name)
+        with open(full_path, 'w+') as f:
+            f.write(doc.info.content)
+
+
+if __name__ == '__main__':
+    docs = load_docs()
+    render(docs)
+    prepare(docs)
+    persist(docs)
