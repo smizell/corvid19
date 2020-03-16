@@ -42,3 +42,8 @@ a {
   font-size: 22px;
   line-height: 34px;
 }
+
+.extra {
+  padding-top: 20px;
+  font-size: 14px;
+}
