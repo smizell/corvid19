@@ -47,6 +47,13 @@ a {
   line-height: 34px;
 }
 
+.subtitle {
+  margin-top: 0;
+  font-size: 80%;
+  color: #444;
+  font-style: italic;
+}
+
 h2 {
   margin-bottom: 5px;
 }
