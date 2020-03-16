@@ -1,3 +1,4 @@
+import dataclasses
 import csv
 import os
 import pathlib
@@ -14,20 +15,17 @@ STATIC_DIR = './static'
 DATA_DIR = './data'
 
 
+@dataclasses.dataclass
 class Context:
-    def __init__(self, data, docs):
-        self.data = data
-        self.docs = docs
+    data: dict
+    docs: list
 
 
+@dataclasses.dataclass
 class Document:
-    def __init__(self, dir_name, file_name, info):
-        self.dir_name = dir_name
-        self.file_name = file_name
-        self.info = info
-
-    def __repr__(self):
-        return f'Document({self.dir_name}/{self.file_name})'
+    dir_name: str
+    file_name: str
+    info: frontmatter.Post
 
 
 def load_docs():
