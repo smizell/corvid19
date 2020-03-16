@@ -20,6 +20,21 @@
     <link rel="manifest" href="/site.webmanifest">
   </head>
   <body>
-    <main>{% block content %}{% endblock %}</main>
+    <div class="content">
+      <header>
+        <h1>Murray, KY / CORVID-19 Resources</h1>
+      </header>
+      {% block content %}{% endblock %}
+      <footer>
+        <p>
+          Again, this site is informational. Consult <a href="https://kycovid19.ky.gov">Kentucky COVID-19</a> for official news.
+          <br>
+          <a href="https://hellomurray.com">Hello Murray</a> /
+          <a href="https://github.com/smizell/covid19">Contribute</a>
+        </p>
+      </footer>
+    </div>
+
+
   </body>
 </html>

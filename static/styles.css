@@ -7,7 +7,7 @@ body {
   line-height: 1.7;
 }
 
-main {
+.content {
   margin: auto;
   max-width: 700px;
 }
@@ -43,7 +43,7 @@ a {
   line-height: 34px;
 }
 
-.extra {
+footer {
   padding-top: 20px;
   font-size: 14px;
 }
