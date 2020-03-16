@@ -14,46 +14,10 @@ STATIC_DIR = './static'
 DATA_DIR = './data'
 
 
-class Renderer:
-    def __init__(self, context):
-        self.context = context
-        loader = jinja2.FileSystemLoader(searchpath=LAYOUTS_DIR)
-        self.template_env = jinja2.Environment(loader=loader)
-        self.templates = {
-            # 'main': self.template_env.get_template('main.jinja2'),
-            'page': self.template_env.get_template('page.jinja2'),
-        } 
-
-    def render(self, doc):
-        # Markdown uses the page template
-        if doc.file_name.endswith('.md'):
-            doc.info.content = markdown.markdown(doc.info.content)
-            doc.file_name = doc.file_name.replace('.md', '.html')
-            return self.templates['page'].render(context=self.context, doc=doc)
-
-        # Jinja2 files will render as themselves
-        # There is no need to use a page template as the `extends` tag
-        # can be used to load other templates
-        if doc.file_name.endswith('.jinja2'):
-            template = self.template_env.from_string(doc.info.content)
-            doc.file_name = doc.file_name.replace('.jinja2', '.html')
-            return template.render(context=self.context, doc=doc)
-
-        # Everything else, we just send back the content
-        return doc.info.content
-
-
 class Context:
-    def __init__(self):
-        self.data = {}
-        self.populate_data()
-
-    def populate_data(self):
-        for file_name in os.listdir(DATA_DIR):
-            data_name, ext = file_name.split('.')
-            if ext == 'csv':
-                with open(os.path.join(DATA_DIR, file_name)) as f:
-                    self.data[data_name] = list(csv.DictReader(f))
+    def __init__(self, data, docs):
+        self.data = data
+        self.docs = docs
 
 
 class Document:
@@ -61,10 +25,6 @@ class Document:
         self.dir_name = dir_name
         self.file_name = file_name
         self.info = info
-
-    @classmethod
-    def from_file_name(cls, dir_name, file_name):
-        return cls(dir_name, file_name, frontmatter.load(os.path.join(dir_name, file_name)))
 
     def __repr__(self):
         return f'Document({self.dir_name}/{self.file_name})'
@@ -74,14 +34,43 @@ def load_docs():
     docs = []
     for dir_name, _, file_names in os.walk(CONTENT_DIR):
         for file_name in file_names:
-            docs.append(Document.from_file_name(dir_name, file_name))
+            info = frontmatter.load(os.path.join(dir_name, file_name))
+            docs.append(Document(dir_name, file_name, info))
     return docs
 
 
-def render(context, docs):
-    renderer = Renderer(context)
-    for doc in docs:
-        doc.info.content = renderer.render(doc)
+def load_data():
+    data = {}
+    for file_name in os.listdir(DATA_DIR):
+        data_name, ext = file_name.split('.')
+        if ext == 'csv':
+            with open(os.path.join(DATA_DIR, file_name)) as f:
+                data[data_name] = list(csv.DictReader(f))
+    return data
+
+
+def render(context):
+    loader = jinja2.FileSystemLoader(searchpath=LAYOUTS_DIR)
+    template_env = jinja2.Environment(loader=loader)
+    templates = {
+        # 'main': self.template_env.get_template('main.jinja2'),
+        'page': template_env.get_template('page.jinja2'),
+    } 
+
+    for doc in context.docs:
+        # Markdown uses the page template
+        if doc.file_name.endswith('.md'):
+            doc.info.content = markdown.markdown(doc.info.content)
+            doc.file_name = doc.file_name.replace('.md', '.html')
+            doc.info.content = templates['page'].render(context=context, doc=doc)
+
+        # Jinja2 files will render as themselves
+        # There is no need to use a page template as the `extends` tag
+        # can be used to load other templates
+        if doc.file_name.endswith('.jinja2'):
+            template = template_env.from_string(doc.info.content)
+            doc.file_name = doc.file_name.replace('.jinja2', '.html')
+            doc.info.content = template.render(context=context, doc=doc)
 
 
 def prepare(docs):
@@ -114,8 +103,9 @@ def persist(docs):
 
 def build():
     docs = load_docs()
-    context = Context()
-    render(context, docs)
+    data = load_data()
+    context = Context(data=data, docs=docs)
+    render(context)
     prepare(docs)
     persist(docs)
 
