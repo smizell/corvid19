@@ -3,6 +3,7 @@ import csv
 import os
 import pathlib
 import shutil
+import typing
 import frontmatter
 import markdown
 import jinja2
@@ -16,16 +17,17 @@ DATA_DIR = './data'
 
 
 @dataclasses.dataclass
-class Context:
-    data: dict
-    docs: list
-
-
-@dataclasses.dataclass
 class Document:
     dir_name: str
     file_name: str
     info: frontmatter.Post
+
+
+@dataclasses.dataclass
+class Context:
+    data: dict
+    docs: typing.List[Document]
+
 
 
 def load_docs():
