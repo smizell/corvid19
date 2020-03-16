@@ -3,6 +3,7 @@ import csv
 import os
 import pathlib
 import shutil
+import subprocess
 import typing
 import frontmatter
 import markdown
@@ -101,10 +102,19 @@ def persist(docs):
             f.write(doc.info.content)
 
 
+def set_last_modified(docs):
+    for doc in docs:
+        relative_path = os.path.join(doc.dir_name, doc.file_name)
+        last_modified = subprocess.check_output(['git', 'log', '-1', '--format="%ad"', '--', relative_path])
+        if last_modified:
+            doc.info['last_modified'] = str(last_modified.decode("utf-8").strip())[1:-1]
+
+
 def build():
     docs = load_docs()
     data = load_data()
     context = Context(data=data, docs=docs)
+    set_last_modified(docs)
     render(context)
     prepare(docs)
     persist(docs)

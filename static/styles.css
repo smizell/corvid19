@@ -47,6 +47,10 @@ a {
   line-height: 34px;
 }
 
+h2 {
+  margin-bottom: 5px;
+}
+
 footer {
   padding-top: 20px;
   font-size: 14px;
