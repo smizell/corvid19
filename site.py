@@ -124,4 +124,5 @@ def build():
 
 
 if __name__ == '__main__':
+    print(f'Building site from {BUILD_DIR}')
     build()
