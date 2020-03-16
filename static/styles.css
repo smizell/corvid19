@@ -17,6 +17,10 @@ header > h1 {
   font-size: 16px;
 }
 
+nav {
+  margin-bottom: 20px;
+}
+
 ul {
   margin: 10px 0 10px 20px;
   padding: 0;
@@ -38,7 +42,6 @@ a {
 }
 
 .about {
-  padding: 15px 0 0;
   font-size: 22px;
   line-height: 34px;
 }
