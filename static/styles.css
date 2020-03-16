@@ -18,9 +18,9 @@ header > h1 {
 }
 
 ul {
-  margin: 10px 5px;
+  margin: 10px 0 10px 20px;
   padding: 0;
-  list-style: square inside;
+  list-style: square;
 }
 
 
