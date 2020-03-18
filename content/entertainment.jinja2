@@ -1,13 +1,14 @@
 ---
 title: Entertainment
+description: We're all stuck inside. But that doesn't mean we have to be bored.
 ---
 {% extends "main.jinja2" %}
 
 {% block content %}
-<h2>Entertainment</h2>
+<h2>{{ doc.info.title }}</h2>
 <p class="subtitle">Last updated: {{ doc.info.last_modified }}</p>
 <p>
-  We're all stuck inside. But that doesn't mean we have to be bored.
+  {{ doc.info.description }}
 </p>
 
 <div class="emoji-links">

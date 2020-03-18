@@ -1,13 +1,14 @@
 ---
 title: Educational Resources
+description: These are great, free resources for kids to learn at home.
 ---
 {% extends "main.jinja2" %}
 
 {% block content %}
-<h2>Educational Resources</h2>
+<h2>{{ doc.info.title }}</h2>
 <p class="subtitle">Last updated: {{ doc.info.last_modified }}</p>
 <p>
-  These are great, free resources for kids to learn at home.
+  {{ doc.info.description }}
 </p>
 
 <div class="emoji-links">
