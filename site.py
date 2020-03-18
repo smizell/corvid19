@@ -1,5 +1,6 @@
-import dataclasses
 import csv
+import dataclasses
+import datetime
 import os
 import pathlib
 import shutil
@@ -105,9 +106,13 @@ def persist(docs):
 def set_last_modified(docs):
     for doc in docs:
         relative_path = os.path.join(doc.dir_name, doc.file_name)
-        last_modified = subprocess.check_output(['git', 'log', '-1', '--format="%ad"', '--', relative_path])
-        if last_modified:
-            doc.info['last_modified'] = str(last_modified.decode("utf-8").strip())[1:-1]
+        last_modified_output = subprocess.check_output(['git', 'log', '-1', '--format="%ad"', '--', relative_path])
+        if last_modified_output:
+            last_modified_text = last_modified_output.decode("utf-8").strip()[1:-1]
+            # Example Tue Mar 17 22:30:27 2020 -0500
+            last_modified = datetime.datetime.strptime(last_modified_text, "%a %b %d %H:%M:%S %Y %z")
+            doc.info['last_modified_date'] = last_modified
+            doc.info['last_modified'] = last_modified.strftime('%B %d, %Y at %I:%M %p')
 
 
 def build():
