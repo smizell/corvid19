@@ -1,13 +1,26 @@
-category,title,url,published-date,added-date
-info,Kentcuky COVID-19 Site,https://kycovid19.ky.gov
-tracker,COVID-19 in US and Canada,https://coronavirus.1point3acres.com/en,,3/15/2020
-tracker,Infection 2020 Tracker,https://infection2020.com/,,3/15/2020
-coverage,WKMS Coronavirus Coverage,https://www.wkms.org/term/coronavirus#stream/0,,3/15/2020
-coverage,WPSD Coronavirus Coverage,https://www.wpsdlocal6.com/news/coronavirus_news/,,3/15/2020
-coverage,Washington Post Live Updates,https://www.washingtonpost.com/world/2020/03/15/coronavirus-latest-news/,,3/15/2020
-twitter,Why Should We Self-Isolate Now?,https://threadreaderapp.com/thread/1238879814863519744.html,,3/15/2020
-info,Flatten the Curve,https://www.flattenthecurve.com/,,3/15/2020
-local,Local School Closures,https://www.wpsdlocal6.com/news/full-list-west-kentucky-school-districts-closed-due-to-coronavirus/article_9284d772-64a3-11ea-8574-d39a6741c8cb.html,,3/15/2020
-info,CDC List of Symptoms,https://www.cdc.gov/coronavirus/2019-ncov/symptoms-testing/symptoms.html?CDC_AA_refVal=https%3A%2F%2Fwww.cdc.gov%2Fcoronavirus%2F2019-ncov%2Fabout%2Fsymptoms.html,,3/15/2020
-info,What to Do if You Become Sick        ,https://www.cdc.gov/coronavirus/2019-ncov/if-you-are-sick/steps-when-sick.html,,3/15/2020
-info,How to Protect Yourself,https://www.cdc.gov/coronavirus/2019-ncov/prepare/prevention.html,,3/15/2020
+id,category,title,url,published-date,added-date
+11,local,Murray Area Restaurant Availability,https://docs.google.com/spreadsheets/d/1-Q3INXf3ZLBMTJd9n22-kLR_jPMh1i6V12Jo31m5Zp0/htmlview,,3/17/2020
+12,online-resource,Met Opera Free Streaming,https://www.metopera.org/,,3/17/2020
+13,online-resource,Twitter Stream #TogetherAtHome,https://twitter.com/hashtag/TogetherAtHome?src=hashtag_click,,3/17/2020
+14,online-resource,Cincinnati Zoo Home Safari,https://www.facebook.com/cincinnatizoo/?hc_ref=ARQjRBnPBT_wIr0354SarSKFUvxC88Zoo8L8KXsWVgFu0olMEWPReNx_dORe-_-mGEM&fref=nf&__xts__[0]=68.ARC2gsPMGk1P6iHWaGcYhdgnc2vjlD-ZLuyfQntXZgmWsDbVASlnSV079SOHleysktX1ahsij7bWKEqAKof1YQ8UVtpLYXCuVzD3tuz0fmTxBnrUcZHsxNE3rRVw4uKQwmEzesrY81qUHFjklZnPTSH2xMIN30HvIucP1HOIwuXPRex2HfJQdiF2qJssHRtf-qN0pEOtB5bwwWnxeS4XAr49nauUQ17ybDxDhSVkwyQasByot0ImoQpg-ziWzCZlSX8fzkKa-Ki2Rr-X_lR9k5BYpsZ9f8B27-XpI3vE2pdk5bDObmSFD56ETCzMloIA3BnYWKT1dVLHMSR5zA&__tn__=kC-R,,3/17/2020
+15,education,Storyline Online,https://www.storylineonline.net/,,3/17/2020
+16,education,Khan Academy,https://www.khanacademy.org/,,3/17/2020
+17,announcements,Actions Gov. Beshear is Taking,https://kentucky.gov/Pages/Activity-stream.aspx?n=GovernorBeshear&prId=93,,3/17/2020
+18,education,Cosmic Kids Yoga,https://www.youtube.com/user/CosmicKidsYoga,,3/17/2020
+19,education,Scholastic Learn at Home,https://classroommagazines.scholastic.com/support/learnathome.html,,3/17/2020
+20,local,Calloway Food Program for Kids,https://www.murrayledger.com/news/local/calloway-food-program-launches-with-misd-set-for-wednesday/article_4b73ece4-67e9-11ea-9fbc-87dea7bc6471.html,,3/17/2020
+21,education,Funbrain,https://www.funbrain.com/,,3/17/2020
+22,education,Math Playground,https://www.mathplayground.com/,,3/17/2020
+23,education,Splash Learn,https://www.splashlearn.com/,,3/17/2020
+24,education,Math Game Time,http://www.mathgametime.com/,,3/17/2020
+25,education,Discovery Mindblown,https://www.discoverymindblown.com/,,3/17/2020
+26,education,NASA Kids Club,https://www.nasa.gov/kidsclub/index.html,,3/17/2020
+27,education,Amazing Space,https://amazing-space.stsci.edu/,,3/17/2020
+28,education,Brain Pop ,https://www.brainpop.com/,,3/17/2020
+29,education,Crash Course,https://www.youtube.com/user/crashcourse,,3/17/2020
+30,education,Nat Geo Kids,https://kids.nationalgeographic.com/,,3/17/2020
+31,education,"Brain Pop, Jr.",https://jr.brainpop.com/,,3/17/2020
+32,education,Duolingo,https://www.duolingo.com/,,3/17/2020
+33,education,Hello Kids,http://www.hellokids.com/,,3/17/2020
+34,online-resource,CCPL Digital Downloads,https://callowaycountylibrary.org/,,3/17/2020
+35,local,Online Church Services,https://www.mymurray.com/worship-online/,,3/17/2020
