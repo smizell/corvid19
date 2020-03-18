@@ -28,6 +28,9 @@ ul {
   list-style: square;
 }
 
+li {
+  margin-bottom: 5px;
+}
 
 a {
   color: #111;
@@ -65,4 +68,8 @@ footer {
 
 .emoji-links a {
   font-weight: bold;
+}
+
+.emoji-links li {
+  margin-bottom: 10px;
 }
