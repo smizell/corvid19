@@ -3,7 +3,7 @@
     <meta name=generator content="Custom (Yikes!)">
     <meta charset=utf-8>
     <meta http-equiv=x-ua-compatible content="ie=edge">
-    <title>{% block title %}Murray/COVID-19{% endblock %}</title>
+    <title>{% block title %}{% if doc.info.title %}{{ doc.info.title }} - {% endif %}Murray/COVID-19{% endblock %}</title>
     <meta name=viewport content="width=device-width,initial-scale=1,shrink-to-fit=no">
 
     {# block twitter %}
