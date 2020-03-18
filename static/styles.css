@@ -36,10 +36,6 @@ a {
   color: #111;
 }
 
-a {
-  color: #33f;
-}
-
 .link-category {
   font-size: 80%;
   color: #555;
@@ -66,7 +62,7 @@ footer {
   font-size: 14px;
 }
 
-.emoji-links a {
+.emoji-links a, .links a {
   font-weight: bold;
 }
 
