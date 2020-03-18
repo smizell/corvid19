@@ -4,23 +4,19 @@
     <meta charset=utf-8>
     {% if doc.info.description %}
     <meta name="description" content="{{ doc.info.description }}">
+    {% else %}
+    <meta name="description" content="A community-developed site with all the links and things we can find related to COVID-9 for Murray, for the state of Kentucky, and beyond.">
     {% endif %}
     <meta http-equiv=x-ua-compatible content="ie=edge">
     <title>{% block title %}{% if doc.info.title %}{{ doc.info.title }} - {% endif %}Murray/COVID-19{% endblock %}</title>
     <meta name=viewport content="width=device-width,initial-scale=1,shrink-to-fit=no">
 
-    {# block twitter %}
-    <meta name=twitter:card content="summary">
-    <meta name=og:url content="">
-    <meta name=og:title content="Murray/COVID-19">
-    <meta name=og:description content="Resources related to Murray, KY and the COVID-19 pandemic.">
-    {% endblock #}
+    {% block meta %}{% endblock %}
 
     <link rel=stylesheet href=/static/styles.css>
     <link rel="apple-touch-icon" sizes="180x180" href="/static/favicons/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/static/favicons/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/static/favicons/favicon-16x16.png">
-    <link rel="manifest" href="/site.webmanifest">
   </head>
   <body>
     <div class="content">

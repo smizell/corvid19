@@ -4,6 +4,13 @@ title: Home
 
 {% extends "main.jinja2" %}
 
+{% block meta %}
+  <meta name="twitter:card" content="summary">
+  <meta name="og:url" content="https://covid19.hellomurray.com">
+  <meta name="og:title" content="murray/covid-19">
+  <meta name="og:description" content="resources related to murray, ky and the covid-19 pandemic.">
+{% endblock %}
+
 {% block content %}
 <main>
   <div class="about">
