@@ -44,6 +44,9 @@ def load_docs():
 def load_data():
     data = {}
     for file_name in os.listdir(DATA_DIR):
+        # Allow for skipping files to load
+        if file_name.startswith('_'):
+            continue
         data_name, ext = file_name.split('.')
         if ext == 'csv':
             with open(os.path.join(DATA_DIR, file_name)) as f:
