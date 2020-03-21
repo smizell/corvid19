@@ -31,7 +31,6 @@ class Context:
     docs: typing.List[Document]
 
 
-
 def load_docs():
     docs = []
     for dir_name, _, file_names in os.walk(CONTENT_DIR):
